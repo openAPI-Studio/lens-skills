@@ -1,0 +1,16 @@
+{
+  "name": "lens-skills",
+  "owner": {
+    "name": "Vectored"
+  },
+  "plugins": [
+    {
+      "name": "lens",
+      "source": "./",
+      "description": "Screenshots, GIFs and step-by-step guides with the Lens Chrome extension, driven by a browser agent."
+    }
+  ],
+  "metadata": {
+    "description": "Agent skills for Lens by Vectored, the Chrome extension for screenshots, GIF recording and step-by-step guides."
+  }
+}

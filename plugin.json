@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "lens-capture-agent",
+  "version": "1.0.0",
+  "description": "Drive the Lens Chrome extension from a browser agent: screenshots with annotations, GIFs and step-by-step guides, with secrets masked and everything filed into a Lens project.",
+  "author": {
+    "name": "Vectored",
+    "url": "https://github.com/openAPI-Studio/lens-skills"
+  },
+  "keywords": [
+    "screenshot",
+    "gif",
+    "screen recording",
+    "step-by-step guide",
+    "documentation",
+    "chrome extension",
+    "browser agent",
+    "redaction"
+  ],
+  "homepage": "https://github.com/openAPI-Studio/lens-skills",
+  "repository": "https://github.com/openAPI-Studio/lens-skills",
+  "license": "MIT"
+}
