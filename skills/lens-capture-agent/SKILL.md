@@ -1,6 +1,6 @@
 ---
 name: lens-capture-agent
-description: Capture screenshots, GIFs and step-by-step guides of web pages with the Lens Chrome extension while driving Chrome as an agent (Claude in Chrome or similar). Use when asked to record a GIF, take an annotated screenshot, document a browser flow as a guide, export or replay a Lens guide, or check that a guide still matches the page. Masks secrets before capture and files everything into a Lens project.
+description: Capture screenshots, full-page screenshots, GIFs and step-by-step guides of web pages with the Lens Chrome extension while driving Chrome as an agent (Claude in Chrome or similar). Use when asked to record a GIF, take an annotated or full-page screenshot, document a browser flow as a guide, export or replay a Lens guide, or check that a guide still matches the page. Masks secrets before capture and files everything into a Lens project.
 ---
 
 # Capturing with Lens from a browser agent
@@ -67,7 +67,8 @@ in [references/commands.md](references/commands.md).
 
 1. Measure the element with `getBoundingClientRect()` and add about 8 px of
    padding. Then run `lens('capture-image', { region: { x, y, width, height } })`.
-   Leave out `region` to capture the whole viewport.
+   Leave out `region` to capture the whole viewport. For everything below the
+   fold too, see **Full-page screenshot**.
 2. Optionally annotate it. Coordinates are viewport CSS pixels, the same space
    you measured in:
    `lens('annotate', { marks: [{ kind: 'rect', x, y, width, height }, { kind: 'arrow', from: {x, y}, to: {x, y} }, { kind: 'text', x, y, text: 'Click here' }] })`.
@@ -75,6 +76,43 @@ in [references/commands.md](references/commands.md).
      rewrites the pixels when the image is saved.
 3. Name it: `lens('fill-saver', { name, notes })`. Then save it:
    `lens('save-open')`.
+
+## Full-page screenshot
+
+Lens scrolls the page from top to bottom itself, a screen at a time, and
+stitches one tall image. It waits for lazy images on each screen, shows sticky
+headers once, and scrolls the inner panel on apps where only a panel scrolls
+(Gmail, Notion and the like).
+
+1. Mask secrets first, as above. Masks are drawn in the page, so they scroll
+   with the content and are in every screen. Keep auto-mask on.
+2. Start it, and note the time:
+   `const go = await lens('capture-full-page'); return { ...go, started: Date.now() };`
+   Don't scroll, click, type or take a computer-use action on the tab until it
+   finishes: any input stops it early. A 30-screen page takes about 20 seconds.
+3. Wait for it in later scripts, a few seconds apart:
+   `return await lens('full-page-status');`
+   It is finished when `last.at` is at least the `started` time from step 2
+   and `running` is false. If nothing has finished after a minute, check
+   `lens('status')` for a recording that blocked it.
+4. Read `last` before saving:
+   - `status: 'done'` is the whole page.
+   - `interrupted` means something touched the page; `reason` says what. To
+     retake, close the saver with
+     `document.getElementById('screensnap-modal-cancel').click()` and start
+     again without touching the tab.
+   - `limit` stopped at the user's capture limit (30 screens by default). If
+     `grew` is true, the page loads more forever and this is expected. Tell the
+     user the limit is under **Settings > Full page: most screenshots**.
+   - `failed` has no picture; `reason` says why.
+   - `unloadedImages > 0` means some images were still blank. Retake once the
+     same way; if they are still blank, save it and tell the user.
+   - `flagged > 0` means the saver found something that looks private that
+     masking missed. Blur it with `annotate` (`kind: 'blur'`).
+5. Annotate in page coordinates, not viewport ones: measure with
+   `getBoundingClientRect()` and add `window.scrollY` to `y`.
+6. Name and save with `fill-saver` and `save-open`, as for a screenshot.
+   Tell the user if the picture is partial and why.
 
 ## GIF
 

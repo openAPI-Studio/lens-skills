@@ -7,6 +7,8 @@ Teaches AI browser agents, such as Claude in Chrome, to capture with the
 extension. The agent can:
 
 - take screenshots of a region and annotate them with boxes, arrows, text or blur;
+- take full-page screenshots: Lens scrolls the page top to bottom and stitches
+  one tall picture, and the agent is told whether it reached the bottom;
 - record GIFs of a flow;
 - record step-by-step guides with one screenshot per click, then export them as
   Markdown, HTML or a bundle, check that each step still matches the page, or
@@ -23,6 +25,7 @@ extension. The agent can:
 
 ## Requirements
 
+- Lens 1.24.0 or later for full-page screenshots.
 - Lens with **Options > Allow browser agents to drive Lens** turned on. It is
   off by default. While it is on, pages you open can ask Lens to capture that
   page, so turn it on only when you use an agent.
