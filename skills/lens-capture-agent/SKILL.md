@@ -42,7 +42,7 @@ await lens('status');
 ```
 
 Every answer has `ok`, and `error` when `ok` is false. The full command list is
-in [reference.md](reference.md).
+in [references/commands.md](references/commands.md).
 
 ## Every capture: project, then secrets
 

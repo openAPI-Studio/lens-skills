@@ -1,5 +1,7 @@
 # Lens agent skill
 
+![Lens agent skill](assets/banner.png)
+
 Teaches AI browser agents, such as Claude in Chrome, to capture with the
 [Lens by Vectored](https://docs.vectored.dev/lens/support.html) Chrome
 extension. The agent can:
@@ -16,6 +18,7 @@ extension. The agent can:
 ## Install
 
 - **Claude Code:** `/plugin marketplace add openAPI-Studio/lens-skills`, then `/plugin install lens@lens-skills`
+- **Kiro:** Powers → Add Custom Power → Import power from GitHub → `https://github.com/openAPI-Studio/lens-skills`
 - **Any agent:** copy `skills/lens-capture-agent/` into the agent's skills folder.
 
 ## Requirements
@@ -37,7 +40,11 @@ Privacy Policy: https://docs.vectored.dev/lens/privacy.html
 ## Source
 
 Published from the Lens repository's `skills/` folder. The command reference
-is `skills/lens-capture-agent/reference.md`.
+is `skills/lens-capture-agent/references/commands.md`.
+
+The layout follows the [Agent Plugins](https://agent-plugins.org) spec, which
+Kiro reads (`plugin.json` and `skills/` at the root), alongside the Claude Code
+plugin files in `.claude-plugin/`. `icon.png` is the skill's image.
 
 ## Support
 
