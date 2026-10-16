@@ -21,7 +21,11 @@ extension. The agent can:
 
 - **Claude Code:** `/plugin marketplace add openAPI-Studio/lens-skills`, then `/plugin install lens@lens-skills`
 - **Kiro:** Powers → Add Custom Power → Import power from GitHub → `https://github.com/openAPI-Studio/lens-skills`
+- **Claude app (claude.ai, desktop):** zip `skills/lens-capture-agent/` and upload it under Settings → Capabilities → Skills.
 - **Any agent:** copy `skills/lens-capture-agent/` into the agent's skills folder.
+
+Step-by-step setup for each agent, with example prompts, is in the Lens docs:
+[AI Agent Skill](https://docs.vectored.dev/lens/docs/agent-skill.html).
 
 ## Requirements
 
@@ -51,6 +55,7 @@ plugin files in `.claude-plugin/`. `icon.png` is the skill's image.
 
 ## Support
 
+- Setup guide: https://docs.vectored.dev/lens/docs/agent-skill.html
 - Support page: https://docs.vectored.dev/lens/support.html
 - Issues: https://github.com/openAPI-Studio/lens-skills/issues
 
